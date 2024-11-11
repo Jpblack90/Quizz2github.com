@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz de Liderazgo Transformacional</title>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --minecraft-blue: #1e5b9e;
+            --minecraft-gold: #daa520;
+            --minecraft-green: #54c754;
+            --minecraft-brown: #825432;
+            --minecraft-stone: #828282;
+            --minecraft-dirt: #966c4a;
+            --minecraft-grass: #4a6c21;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            image-rendering: pixelated;
+        }
+
+        body {
+            background-color: #c6c6c6;
+            background-image: 
+                linear-gradient(45deg, #999999 25%, transparent 25%),
+                linear-gradient(-45deg, #999999 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, #999999 75%),
+                linear-gradient(-45deg, transparent 75%, #999999 75%);
+            background-size: 32px 32px;
+            background-position: 0 0, 0 16px, 16px -16px, -16px 0px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+            font-family: 'VT323', monospace;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.8);
+            border: 4px solid #000;
+            position: relative;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 3px solid #555;
+            pointer-events: none;
+        }
+
+        .btn {
+            background: #54c754;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            color: white;
+            font-family: 'VT323', monospace;
+            cursor: pointer;
+            position: relative;
+            border: 3px solid #000;
+            text-transform: uppercase;
+            transition: transform 0.1s;
+        }
+
+        .btn:hover {
+            background: #3fa83f;
+            transform: translateY(-2px);
+        }
+
+        .btn:active {
+            transform: translateY(2px);
+        }
+
+        .question {
+            margin: 2rem 0;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.6);
+            border: 3px solid #000;
+        }
+
+        .option {
+            display: block;
+            width: 100%;
+            text-align: left;
+            margin: 0.5rem 0;
+            padding: 1rem;
+            background: var(--minecraft-stone);
+            border: 3px solid #000;
+            color: white;
+            font-family: 'VT323', monospace;
+            font-size: 1.2rem;
+            position: relative;
+            transition: all 0.2s;
+        }
+
+        .option:hover {
+            background: var(--minecraft-grass);
+            transform: translateX(5px);
+        }
+
+        /* Nuevo estilo del certificado */
+        .certificate-content {
+            width: 100%;
+            background: #e6cea8;
+            padding: 40px;
+            border: 8px solid var(--minecraft-brown);
+            position: relative;
+            image-rendering: pixelated;
+            box-shadow: 0 0 0 4px #000000;
+            color: #000000;
+            margin: 20px 0;
+        }
+
+        .certificate-content::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            right: 8px;
+            bottom: 8px;
+            border: 4px solid var(--minecraft-blue);
+            pointer-events: none;
+        }
+
+        .corner-decoration {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: var(--minecraft-gold);
+        }
+
+        .corner-decoration.top-left { top: 0; left: 0; }
+        .corner-decoration.top-right { top: 0; right: 0; }
+        .corner-decoration.bottom-left { bottom: 0; left: 0; }
+        .corner-decoration.bottom-right { bottom: 0; right: 0; }
+
+        h1 {
+            color: var(--minecraft-blue);
+            font-size: 48px;
+            text-align: center;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px #000000;
+            animation: minecraft-float 2s infinite;
+        }
+
+        h2 {
+            color: var(--minecraft-blue);
+            font-size: 32px;
+            text-align: center;
+            margin: 1rem 0;
+            text-shadow: 1px 1px #000000;
+        }
+
+        .signatures {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 60px;
+            padding: 0 40px;
+        }
+
+        .signature {
+            text-align: center;
+            color: #000000;
+            text-shadow: none;
+        }
+
+        .signature-line {
+            width: 200px;
+            border-top: 3px dashed var(--minecraft-brown);
+            margin: 10px auto;
+        }
+
+        .logo {
+            width: 120px;
+            height: auto;
+            margin: 0 20px;
+        }
+
+        @keyframes minecraft-float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0); }
+        }
+
+        @keyframes minecraft-glow {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @media print {
+            .no-print {
+                display: none;
+            }
+            body {
+                background: none;
+            }
+            .container {
+                border: none;
+                background: none;
+            }
+            .certificate-content {
+                box-shadow: none;
+            }
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 3px solid #000;
+            background: #c6c6c6;
+            font-family: 'VT323', monospace;
+            font-size: 1.2rem;
+            color: #000;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--minecraft-green);
+            background: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="welcome">
+            <h1>Quiz de Liderazgo Transformacional</h1>
+            <input type="text" id="playerName" placeholder="Ingresa tu nombre completo">
+            <button class="btn" onclick="startQuiz()">Comenzar</button>
+        </div>
+
+        <div id="quiz" style="display: none">
+            <h2>Pregunta <span id="questionNumber">1</span>/20</h2>
+            <div id="questionContainer"></div>
+        </div>
+
+        <div id="certificate" style="display: none">
+            <div id="certificateTemplate">
+                <div class="certificate-content">
+                    <div class="corner-decoration top-left"></div>
+                    <div class="corner-decoration top-right"></div>
+                    <div class="corner-decoration bottom-left"></div>
+                    <div class="corner-decoration bottom-right"></div>
+                    
+                    <h1>Certificado</h1>
+<h2>DE RECONOCIMIENTO A:</h2>
+<h3 id="playerNameCert" style="font-size: 24px; margin: 20px 0; color: #000; text-align: center;"></h3>
+<p style="margin: 20px 0; text-align: center; color: #000;">
+    Por haber concluido de manera satisfactoria el curso de "Liderazgo Transformacional en la Gestión de Talentos", impartido por PsicoInnovaTe, empresa especializada en recursos humanos.
+</p>
+<h3 style="text-align: center; color: var(--minecraft-blue);"></h3>
+
+                    
+                    
+                    <div class="signatures">
+                        <div class="signature">
+                            <div class="signature-line"></div>
+                            <p>Naydeth Prieto</p>
+                            <p>Propietaria</p>
+                        </div>
+                        <div class="signature">
+                            <img src="/img/LogoPsisco-removebg-preview.jpg" class="logo" alt="Logo">
+                        </div>
+                        <div class="signature">
+                            <div class="signature-line"></div>
+                            <p>Brisa Meza</p>
+                            <p>Coo-propietaria</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn no-print" onclick="window.print()">Imprimir Certificado</button>
+            <button class="btn no-print" onclick="location.reload()">Reiniciar Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+        {
+            question: "¿Qué es el liderazgo transformacional?",
+            options: [
+                "Un enfoque que se centra en controlar a los empleados",
+                "Un tipo de liderazgo basado en la jerarquía y la autoridad",
+                "Un estilo que busca inspirar y motivar a los colaboradores para que logren su máximo potencial"
+            ],
+            correct: 2
+        },
+        {
+            question: "¿Cuál es una de las características principales del liderazgo transformacional?",
+            options: [
+                "Foco en el control y seguimiento estricto",
+                "Visión clara y comunicación inspiradora",
+                "Autoritarismo"
+            ],
+            correct: 1
+        },
+        {
+            question: "¿Cómo se puede definir la empatía en el liderazgo transformacional?",
+            options: [
+                "Escuchar solo lo que conviene para tomar decisiones",
+                "Imponer decisiones sin considerar las opiniones del equipo",
+                "Entender y conectar con las emociones y necesidades de los colaboradores"
+            ],
+            correct: 2
+        },
+        {
+            question: "¿Qué impacto tiene el liderazgo transformacional en la rotación del personal?",
+            options: [
+                "No tiene ningún impacto",
+                "Aumenta la rotación",
+                "Reduce la rotación en un 25%"
+            ],
+            correct: 2
+        },
+        {
+            question: "¿Qué elemento es esencial para aumentar el compromiso de los empleados?",
+            options: [
+                "Mantener una distancia emocional con el equipo",
+                "Un líder transformacional que inspire y motive",
+                "Establecer reglas estrictas"
+            ],
+            correct: 1
+        },
+        {
+            question: "¿Qué tipo de ambiente promueve el liderazgo transformacional?",
+            options: [
+                "Un ambiente jerárquico donde los empleados no cuestionan las decisiones",
+                "Un ambiente colaborativo y creativo",
+                "Uno basado en la competencia y el control"
+            ],
+            correct: 1
+        },
+        {
+            question: "¿Cuál es un beneficio del liderazgo transformacional en el equipo?",
+            options: [
+                "Menor satisfacción laboral",
+                "Aumento de la competencia interna",
+                "Mayor sentido de pertenencia y satisfacción"
+            ],
+            correct: 2
+        },
+        {
+            question: "¿Qué hace un líder transformacional para fomentar la innovación?",
+            options: [
+                "Limita la toma de decisiones a nivel individual",
+                "Establece reglas estrictas para evitar errores",
+                "Motiva y crea un ambiente donde las ideas creativas son valoradas"
+            ],
+            correct: 2
+        },
+        {
+            question: "¿Cuál de los siguientes es un error común del liderazgo transformacional?",
+            options: [
+                "Fomentar la autonomía de los empleados",
+                "Delegar responsabilidades y confiar en el equipo",
+                "Ser inconsistente entre palabras y acciones"
+            ],
+            correct: 2
+        },
+        {
+            question: "¿Cómo se define la retroalimentación constructiva en el liderazgo transformacional?",
+            options: [
+                "Solo hacer comentarios negativos para mejorar",
+                "Proporcionar comentarios claros y útiles para el desarrollo del colaborador",
+                "Criticar sin ofrecer soluciones"
+            ],
+            correct: 1
+        },
+        {
+            question: "¿Qué tipo de relaciones crea un líder transformacional dentro del equipo?",
+            options: [
+                "Relaciones distantes y formales",
+                "Relaciones competitivas para fomentar el éxito individual",
+                "Relaciones basadas en la confianza, respeto y apoyo mutuo"
+            ],
+            correct: 2
+        },
+        {
+            question: "¿Cuál es un ejemplo de un líder transformacional famoso?",
+            options: [
+                "Un gerente de nivel medio",
+                "Un líder autocrático",
+                "Steve Jobs"
+            ],
+            correct: 2
+        },
+        {
+            question: "¿Por qué el liderazgo transformacional reduce la rotación del personal?",
+            options: [
+                "Porque da más control a los empleados",
+                "Porque establece metas rígidas para el equipo",
+                "Porque fomenta el desarrollo personal y la satisfacción"
+            ],
+            correct: 2
+        },
+        {
+            question: "¿Qué papel juega la comunicación en el liderazgo transformacional?",
+            options: [
+                "No es relevante, ya que las acciones hablan por sí solas",
+                "Es clave para inspirar, motivar y conectar con el equipo",
+                "Es un proceso unidireccional de mando"
+            ],
+            correct: 1
+        },
+        {
+            question: "¿Qué es la “visión clara” en el contexto del liderazgo transformacional?",
+            options: [
+                "Hacer planes sin consultar al equipo",
+                "Tener un objetivo común bien definido que guíe las acciones del equipo",
+                "La capacidad de imponer reglas"
+            ],
+            correct: 1
+        },
+        {
+            question: "¿Cómo afecta el liderazgo transformacional en la creatividad de los empleados?",
+            options: [
+                "La inhibe, ya que se espera que sigan instrucciones al pie de la letra",
+                "La promueve al crear un entorno donde se valoran las ideas innovadoras",
+                "No tiene impacto en la creatividad de los empleados"
+            ],
+            correct: 2
+        },
+        {
+            question: "¿Qué se busca lograr con el liderazgo transformacional en relación a los talentos?",
+            options: [
+                "Minimizar el contacto entre el líder y el equipo",
+                "El control absoluto de todos los aspectos del trabajo",
+                "El desarrollo y crecimiento de los colaboradores"
+            ],
+            correct: 2
+        },
+        {
+            question: "¿Qué se espera de los colaboradores en un entorno de liderazgo transformacional?",
+            options: [
+                "No proponer nuevas ideas para evitar conflictos",
+                "Estar motivados para innovar, colaborar y mejorar continuamente",
+                "Solo seguir órdenes sin cuestionarlas"
+            ],
+            correct: 1
+        },
+        {
+            question: "¿Cómo contribuye el liderazgo transformacional al rendimiento organizacional?",
+            options: [
+                "Solo aumentando las horas de trabajo",
+                "Estableciendo una cultura de innovación, motivación y compromiso",
+                "Mejora solo a través de la disciplina estricta"
+            ],
+            correct: 1
+        },
+        {
+            question: "¿Qué debe hacer un líder transformacional cuando comete un error?",
+            options: [
+                "Echar la culpa a otros miembros del equipo",
+                "Aceptar su responsabilidad, aprender de él y seguir motivando al equipo",
+                "Ignorar el error y seguir adelante"
+            ],
+            correct: 1
+        }
+    ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let playerName = "";
+
+        function startQuiz() {
+            playerName = document.getElementById("playerName").value.trim();
+            if (!playerName) {
+                alert("Por favor ingresa tu nombre para comenzar");
+                return;
+            }
+            document.getElementById("welcome").style.display = "none";
+            document.getElementById("quiz").style.display = "block";
+            showQuestion();
+        }
+    
+        function showQuestion() {
+            const questionData = questions[currentQuestion];
+            document.getElementById("questionNumber").textContent = currentQuestion + 1;
+            
+            let html = `
+                <div class="question active">
+                    <p>${questionData.question}</p>
+                    ${questionData.options.map((option, index) => `
+                        <button class="option" onclick="checkAnswer(${index})">
+                            ${option}
+                        </button>
+                    `).join("")}
+                </div>
+            `;
+            
+            document.getElementById("questionContainer").innerHTML = html;
+        }
+    
+        function checkAnswer(answer) {
+            if (answer === questions[currentQuestion].correct) {
+                score++;
+            }
+            
+            currentQuestion++;
+            
+            if (currentQuestion < questions.length) {
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+    
+        function showResults() {
+            const percentage = (score / questions.length) * 100;
+            document.getElementById("quiz").style.display = "none";
+            document.getElementById("certificate").style.display = "block";
+            document.getElementById("playerNameCert").textContent = playerName;
+            document.getElementById("score").textContent = percentage.toFixed(1);
+            
+            if (percentage >= 70) {
+                document.getElementById("certificateTemplate").style.display = "block";
+                document.getElementById("certificate").innerHTML += `
+                    <h2>¡Felicidades, has aprobado el examen!</h2>
+                    <p>Tu puntuación: ${percentage.toFixed(1)}%</p>
+                    <button class="btn" onclick="location.reload()">Intentar de nuevo</button>
+                `;
+            } else {
+                document.getElementById("certificateTemplate").style.display = "none";
+                document.getElementById("certificate").innerHTML += `
+                    <h2>Lo siento, necesitas al menos 70% para aprobar</h2>
+                    <p>Tu puntuación: ${percentage.toFixed(1)}%</p>
+                    <button class="btn" onclick="location.reload()">Intentar de nuevo</button>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
